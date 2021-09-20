@@ -2,7 +2,7 @@
 #include <Windows.h>
 #include <Shellapi.h>
 #include <tchar.h>
-#include <WinKillHook.h>
+#include <WinKillExHook.h>
 #include <string>
 #include "resource.h"
 
@@ -11,8 +11,8 @@
 #define MENU_ITEM_EXIT 1979
 #define MENU_ITEM_TOGGLE_CAPTION L"Toggle"
 #define MENU_ITEM_EXIT_CAPTION L"Exit"
-#define TRAY_ICON_TIP L"WinKill v0.3"
-#define WINDOW_CLASS L"WinKillClass"
+#define TRAY_ICON_TIP L"WinKillEx v0.3"
+#define WINDOW_CLASS L"WinKillExClass"
 
 static HICON iconActive = nullptr, iconKilled = nullptr;
 static bool hooked = false, trayIconDataVisible = false;
@@ -108,7 +108,7 @@ static void createWindow(HINSTANCE instance) {
     WNDCLASS wc = {};
     wc.lpfnWndProc = windowProc;
     wc.hInstance = instance;
-    wc.lpszClassName = L"WinKillClass";
+    wc.lpszClassName = L"WinKillExClass";
     RegisterClass(&wc);
 
     mainWindow =
@@ -191,18 +191,18 @@ static void createTrayMenu() {
 }
 
 static void startHook() {
-    hooked = winkill_install_hook(mainWindow);
+    hooked = WinKillEx_install_hook(mainWindow);
 
     if (hooked) {
         setTrayIcon(iconKilled);
     }
     else {
-        MessageBox(mainWindow, L"Couldn't start keyboard hook!", L"WinKill", MB_OK);
+        MessageBox(mainWindow, L"Couldn't start keyboard hook!", L"WinKillEx", MB_OK);
     }
 }
 
 static void stopHook() {
-    hooked = (!winkill_remove_hook());
+    hooked = (!WinKillEx_remove_hook());
 
     if (!hooked) {
         setTrayIcon(iconActive);
