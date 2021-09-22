@@ -33,15 +33,15 @@ WinKillExHOOK_API LRESULT CALLBACK keyboard_proc(int nCode, WPARAM wParam, LPARA
         case WM_SYSKEYUP: {
                 PKBDLLHOOKSTRUCT hook_struct = (PKBDLLHOOKSTRUCT)lParam;
                 DWORD keyCode = hook_struct->vkCode;
-
+                                        
                 if ((keyCode == VK_LWIN) || (keyCode == VK_RWIN)) {
                     return 1;
                 }
-                if ((keyCode == VK_TAB && (hook_struct->flags & KF_ALTDOWN) != 0))
+                if ((keyCode == VK_TAB && (hook_struct->flags & LLKHF_ALTDOWN) != 0))
                 {
                     return 1;
                 }
-                if ((keyCode == VK_TAB && (hook_struct->flags & KF_ALTDOWN) != 0))
+                if ((keyCode == VK_TAB && (hook_struct->flags & LLKHF_ALTDOWN) != 0))
                 {
                     return 1;
                 }
