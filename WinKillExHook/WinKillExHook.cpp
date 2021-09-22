@@ -37,11 +37,11 @@ WinKillExHOOK_API LRESULT CALLBACK keyboard_proc(int nCode, WPARAM wParam, LPARA
                 if ((keyCode == VK_LWIN) || (keyCode == VK_RWIN)) {
                     return 1;
                 }
-                if ((keyCode == VK_TAB && (hook_struct->flags && KF_ALTDOWN) != 0))
+                if ((keyCode == VK_TAB && (hook_struct->flags & KF_ALTDOWN) != 0))
                 {
                     return 1;
                 }
-                if ((keyCode == VK_TAB && (hook_struct->flags && KF_ALTDOWN) != 0))
+                if ((keyCode == VK_TAB && (hook_struct->flags & KF_ALTDOWN) != 0))
                 {
                     return 1;
                 }
